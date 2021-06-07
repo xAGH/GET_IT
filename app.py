@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     tittle = "Get It"
-    return "hola"
+    return render_template('index.html', tittle=tittle)
 
 # Registro
 @app.route('/registro', methods=['POST'])
