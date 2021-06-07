@@ -75,4 +75,30 @@ footer {
     width:100%;
   }
     
+  .img3{
+    width: 7%;
+    height: 7%;
+
+    padding: 8px; 
+    margin: 7px;
+    border: 1px solid black; 
+    float: left; width: 7%; 
+
     
+}
+.parrafo1{
+    text-align:left;
+    text-indent: justify;
+    color: lightsteelblue;
+    font-family: monospace;
+}
+.titulo1{
+    
+    font-family: cursive;
+    font-size: 300%;
+    background-color: blueviolet;
+    text-align: left;
+
+
+
+}
