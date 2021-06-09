@@ -1,7 +1,7 @@
 # ------------------------------ Importación de librerías ------------------------------
 from flask import Flask, request, jsonify, redirect, url_for, render_template
 from werkzeug.utils import redirect
-from envio_correo import confirmar_correo
+import envio_correo
 
 usuarios = []
 
@@ -23,7 +23,7 @@ def registro():
     contrasena = request.form.get('contrasena')
     contrasena2 = request.form.get('contrasena2')
     if contrasena == contrasena2:
-        confirmar_correo(email)
+        envio_correo.confirmar_correo(email)
         return "200"
 
 @app.route('/login', methods=['GET'])
