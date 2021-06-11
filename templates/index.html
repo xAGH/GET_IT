@@ -1,67 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ tittle }}</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
-</head>
+{% extends 'layout.html' %}
 
-<header>
-    <img class="img1" src="{{url_for('static', filename='images/logo.jpeg')}}">
-    <h1 class="titulo">GET IT.</h1>
-    <p class="parrafo">"Tu comunidad  de intercambio " 
-        <br> ¿Qué esperas?
-       <br>¡¡Alguien lo esta esperando para el trueque!!
-    </p>
+{% block body %}
 
-    <nav  ><center>
-        
-        <button class="boton"><a href="{{url_for('registro')}}">ingreso</a></button>
-        <button class="boton"><a href="#">consiguelo</a></button>
-        <button class="boton"><a href="#">registro</a></button>
-        <button class="boton"><a href="#">ayuda y politicas </a></button>
-        
-        
-    </center></nav>
+<img class="img2" src="{{url_for('static', filename='images/logo.jpeg')}}" alt="centrada">
+<footer>Derechos reservados pagina  realizada  por   @jhoguia  </footer>
 
-    
-</header>
-
-<body>
-
-    
-
-  
-  
-
-    <img class="img2" src="{{url_for('static', filename='images/logo.jpeg')}}" alt="centrada">
-    
-   
-
-
-
-
-
-
-
-
-
-    
-
-    
-        
-    
-
-
-
-
-
-    <footer>Derechos reservados pagina  realizada  por   @jhoguia  </footer>
-
-</body>
-
-
-
-</html>
+{% endblock %}

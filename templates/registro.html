@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <h1>{{ message }}</h1>
+
+            {% endfor %}
+
+        {% endif %}
+        
+    {% endwith %}
+
+
+    <div class="container">
+
+        <form id="signup" action="{{url_for('registro')}}" method="POST">
+    
+            <div class="header">
+            
+                <h3>Registro</h3>
+                
+                <p>¡Tu comunidad de intercambio</p>
+                
+            </div>
+            
+            <div class="sep"></div>
+    
+            <div class="inputs">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email" required value="{{ email }}" autofocus />
+                <input type="password" name="contrasena" required placeholder="Contraseña" />
+                <input type="password" name="contrasena2" required placeholder="Confirmación contraseña" />
+                <input type="text" name="nombre" required placeholder="Nombres y apellidos" />
+                <input type="text" name="documento" required placeholder="Número de documento" />
+                <input type="text" name="referencia" placeholder="Referenciado por: " />
+                <input type="text" name="celular" required placeholder="Número celular" />
+                <input type="text" name="facebock" placeholder="Facebock Link"/>
+
+
+                <div class="checkboxy">
+                    <label class="terms"> acepto </label><input name="cecky" id="checky" value="1" type="checkbox" />
+                </div>
+                <input type="submit" value="Registrarse">
+            
+            </div>
+    
+        </form>
+    
+    </div>
+
+{% endblock %}
