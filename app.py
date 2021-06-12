@@ -9,12 +9,26 @@ from flask import flash
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from mysql import connector as sql
 
-usuarios = {}
 
 # ------------------------------ Configuración ------------------------------
+
+# Se configura el Flask name como app
 app = Flask(__name__)
+# Se crea la secret key utilizada para cifrar los datos entregados a las cookies.
+
 app.secret_key = "I5@G2HqM<K#{1]{RN=)bapgSzg1a2+d9?1Hhgx]4[?T~<T&S<]5bkBw{4R;hK+wcNEBVj#Bmy]tyW?i]"
+
+# Se hace la conexión con la base de datos.
+db = sql.connect(
+    host = 'localhost',
+    user = 'root',
+    passwd = '',
+    database = 'get_it'
+)
+# Creación del cursor para las consultas SQL
+cursor = db.cursor()
 
 # ------------------------------ Creación de rutas ------------------------------
 # Index
@@ -26,20 +40,25 @@ def index():
 # Interfaz de registro.
 @app.route('/interfazregistro')
 def interfaz_registro():
- tittle = "Registro"
- return render_template('registro.html', tittle=tittle)
+    tittle = "Registro"
+    contrasena = request.args.get('contrasena')
+    email = request.args.get('email')
+    return render_template('registro.html', tittle=tittle, contrasena=contrasena, email=email)
 
 # Interfaz de login.
-@app.route('/interfazlogin', methods=['GET'])
+@app.route('/interfazlogin')
 def interfaz_login():
     tittle = "Ingreso"
     return render_template('ingreso.html', tittle=tittle)
 
 # Registro completado.
-@app.route('/registrado', methods={'POST'})
-def registrado():
+@app.route('/registrado/<id>')
+def registrado(id):
+    id = id
+    cursor.execute("""UPDATE usuarios set estado=1 where idusuarios=%s""",[id])
+    db.commit()
     tittle = "Registrado correctamente"
-    return render_template('registrado.html', tittle=tittle)
+    return "200"
 
 
 # ------------------------------ Creación de rutas lógicas ------------------------------
@@ -54,23 +73,22 @@ def registro():
     referencia = request.form.get('referencia')
     celular = request.form.get('celular')
     facebook = request.form.get('facebook')
-    lista = [email, contrasena, nombre, documento, referencia, celular, facebook]
-
-    if usuarios.get(email):
-        flash("El email ya se encuentra registrado.")
-        return redirect(url_for('interfaz_registro'))
+    cursor.execute("""SELECT email from usuarios where email=%s""",[email])
+    email_registrado = cursor.fetchall()
+    if len(email_registrado) > 0:
+        return redirect(url_for('interfaz_registro',email='invalid'))
     
     else:
 
         if contrasena == contrasena2:
-            confirmar_correo(email)
+            cursor.execute("""INSERT INTO usuarios(idusuarios,nombre,email,clave,whatsapp,facebook,referencia, estado)
+            VALUES (%s,%s, %s, %s, %s, %s, %s, "0")""",
+            [documento, nombre, email, contrasena, celular, facebook, referencia])
+            db.commit()
+            confirmar_correo(email, documento)
             return render_template('confirma.html', tittle='Confirma tu correo electrónico')
 
-        flash("Las contraseñas no coinciden1.")
-
-
-        
-        return redirect(url_for('interfaz_registro'))
+        return redirect(url_for('interfaz_registro',contrasena='invalid'))
 
 # Login
 @app.route('/login', methods=['POST'])
@@ -78,19 +96,18 @@ def login():
     # usuarios[email] = {"contrasena":contrasena, "nombre":nombre, "documento":documento, "referencia":referencia, "celular":celular, "facebook":facebook}
     return "200"
 
-def confirmar_correo(email):
+def confirmar_correo(email, documento):
 
     # Plantilla del mensaje
-
-    mensaje = f"""
+    mensaje = """
     <html>
         <body>
             <p style="text-align: center;"><span style="color: #ff0000;"><strong>Confirma tu correo para poder seguir</strong></span></p>
             <p style="text-align: center;"><strong></strong></p>
-            <p><a href="{redirect(url_for('registrado'))}" target="_blank" rel="noopener">Confirma</a></p>
+            <p><a href="http://127.0.0.1:5000/registrado/{}" target="_blank" rel="noopener">Confirma</a></p>
         </body>
     </html>
-    """
+    """.format(documento)
 
     # Creamos objeto Multipart, quien será el recipiente que enviaremos
     msg = MIMEMultipart()

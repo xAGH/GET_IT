@@ -43,13 +43,12 @@ CREATE TABLE IF NOT EXISTS `get_it`.`usuarios` (
   `email` VARCHAR(80) NULL DEFAULT NULL,
   `clave` VARCHAR(256) NULL DEFAULT NULL,
   `whatsapp` CHAR(30) NULL DEFAULT NULL,
-  `facebook` VARCHAR(80) NULL DEFAULT NULL,
   `referencia` VARCHAR(80) NULL DEFAULT NULL,
-  `estrellas` DECIMAL(10,0) NULL DEFAULT NULL,
+  `estrellas` DECIMAL(5,0) NULL DEFAULT NULL,
   PRIMARY KEY (`idusuarios`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
-
+ALTER table usuarios add column `facebook` char(255) null default "No proporcionado" after `whatsapp`;
 
 -- -----------------------------------------------------
 -- Table `git_it`.`productos`
@@ -90,3 +89,4 @@ DEFAULT CHARACTER SET = utf8mb4;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+Alter table usuarios 

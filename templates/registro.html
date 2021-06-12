@@ -2,19 +2,15 @@
 
 {% block body %}
 
-    {% with messages = get_flashed_messages() %}
+    {% if email %}
 
-        {% if messages %}
+        <script>alert('El email ya se encuentra registrado.')</script>
 
-            {% for message in messages %}
+    {% elif contrasena %}
 
-                <h1>{{ message }}</h1>
+        <script>alert('Las contraseñas no coinciden.')</script>
 
-            {% endfor %}
-
-        {% endif %}
-        
-    {% endwith %}
+    {% endif %}
 
 
     <div class="container">
@@ -32,8 +28,7 @@
             <div class="sep"></div>
     
             <div class="inputs">
-                <label for="email">Email</label>
-                <input id="email" type="email" name="email" required value="{{ email }}" autofocus />
+                <input id="email" type="email" name="email" required placeholder="Email" autofocus />
                 <input type="password" name="contrasena" required placeholder="Contraseña" />
                 <input type="password" name="contrasena2" required placeholder="Confirmación contraseña" />
                 <input type="text" name="nombre" required placeholder="Nombres y apellidos" />
