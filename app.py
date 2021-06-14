@@ -90,6 +90,14 @@ def registro():
 
         return redirect(url_for('interfaz_registro',contrasena='invalid'))
 
+# Cuenta 
+@app.route('/interfazcuenta', methods=['GET'])
+def interfaz_cuenta():
+    tittle = 'Cuenta'
+    return render_template('cuenta.html', tittle=tittle)
+
+
+
 # Login
 @app.route('/login', methods=['POST'])
 def login():
@@ -130,4 +138,6 @@ def confirmar_correo(email, documento):
     mailServer.close()
 
 
-app.run(debug=True, port=5000)
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)

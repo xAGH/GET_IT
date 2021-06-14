@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <form id="publica" action="{{url_for('publica')}}" method="POST">
+        <div class="input">
+            
+            <div>
+            <h3>PUBLICAR</h3><br>
+
+            <input type="radio" name="hm" value="h"> Producto
+            <input type="radio" name="hm" value="m"> Servicio
+            <br>
+
+            <p>titulo: <input type="text" name="titulo" size="40"required placeholder=""></p>
+            <p>cambio por: <input type="text" name="cambio"size="40"/></p>
+            <p>contacto: <input type="number" name="celular"/></p>
+            <p>descripcion: <textarea type="text" name="duser_message"></textarea></p>
+            <p>publicar imagen: <input type=file size=60 name="file1" required placeholder=""></p><br><br>
+        
+            <hr>
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Borrar">
+            </div>
+            <div>
+                <button class="boton"><a href="{{url_for('index')}}">Get It</a></button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

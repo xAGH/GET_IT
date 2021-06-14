@@ -11,28 +11,29 @@
 <header>
     <img class="img1" src="{{url_for('static', filename='images/logo.jpeg')}}">
     <h1 class="titulo">GET IT.</h1>
-    <p class="parrafo">"Tu comunidad  de intercambio " 
+</header>
+    <h4>"Tu comunidad  de intercambio " 
         <br> ¿Qué esperas?
-       <br>¡¡Alguien lo esta esperando para el trueque!!
-    </p>
+        <br>¡¡Alguien te esta esperando para el trueque!!
+    </h4>
 
     <nav  ><center>
         
         <button class="boton"><a href="{{url_for('index')}}">Get It</a></button>
         <button class="boton"><a href="{{url_for('interfaz_login')}}">Ingreso</a></button>
         <button class="boton"><a href="{{url_for('interfaz_registro')}}">Registro</a></button>
-        <button class="boton"><a href="#">Ayuda y políticas </a></button>
+        <button class="boton"><a href="{{url_for('interfaz_cuenta')}}">cuenta </a></button>
         
         
     </center></nav>
 
     
-</header>
+
 
 <body>
 {% block body %}
 
 {% endblock %}
 </body>
-
+<footer>. &copy;2021 Derechos reservados pagina  realizada  por   @jhoguia  </footer>
 </html>

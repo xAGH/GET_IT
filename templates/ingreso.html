@@ -1,24 +1,27 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<center>
-    <form action="login" method="POST">
-        <p class="parrafo2" >usuario: <input type="text" name="usuario" size="40"></p>
-        <p>contraseña: <input type="number" name="contraseña" ></p>
-        <p>No eres un robot:
-          <input type="radio" name="hm" value="h"> no soy robot
-          
-        </p>
-        <p>
-          <input type="submit" value="Entrar">
-          <input type="reset" value="Borrar">
-        </p>
-        <p>¿No estas   registrado? <a href="{{url_for('interfaz_registro')}}">REGISTRATE</a></p>
-
-        <p>
-            <input type="submit" value="registro">
-        </p>
-      </form>
-    </center>
-
+  <div class="container">
+      
+    <form id="login"action="{{url_for('login')}}" method="POST">
+      <div class="header">
+        <h3>INGRESO</h3>
+        </div>
+          <div class="inputs">
+              <p class="parrafo2" >usuario: <input type="text" name="usuario" size="40"></p>
+              <p>contraseña: <input type="number" name="contraseña" ></p>
+              <p>No eres un robot:
+                <input type="radio" name="hm" value="h"> no soy robot
+                
+              </p>
+              <p>
+                <input type="submit" value="Entrar">
+                <input type="reset" value="Borrar">
+              </p>
+              <p>¿No estas   registrado? <a href="{{url_for('interfaz_registro')}}">REGISTRATE</a></p>
+          </div>
+      </div>   
+      
+    </form> 
+  </div>
 {% endblock %}
