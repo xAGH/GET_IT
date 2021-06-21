@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <form id="publica" action="{{url_for('publicar')}}" method="POST" enctype="multipart/form-data">
+        <div class="input">
+            
+            <div>
+            <h3>PUBLICAR</h3><br>
+            <label for="">Categoria: </label>
+            <input type="radio" name="PoS" value="P"> Producto
+            <input type="radio" name="PoS" value="S"> Servicio
+            <br>
+
+            <p>Nombre: <input type="text" name="nombre" size="40"required placeholder=""></p>
+            <p>Cambio por: <input type="text" name="cambio"size="40"/></p>
+            <p>Descripcion: <textarea type="text" name="descripcion"></textarea></p>
+            <p>Imagen: <input type=file size=60 name="file1" required placeholder=""></p><br><br>
+        
+            <hr>
+            <input type="submit" value="Enviar">
+            <input type="reset" value="Borrar">
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

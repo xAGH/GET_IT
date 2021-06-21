@@ -11,33 +11,20 @@
         </div>
         <div class="usuario-body">
             <div class="usuario-bio">
-                <h3 class="titulo">nombre</h3>
+                <h3 class="titulo">{{nombre}}</h3>
                 <p class="texto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua.</p>
             </div>
             <div class="usuario-footer">
                 <ul class="lista-datos">
-                    <li><i class="texto"></i> Direccion de usuario:</li>
-                    <li><i class="texto"></i> Telefono:</li>
-                    <li><i class="texto"></i> Correo:</li>
-                </ul>
-                <ul class="lista-datos">
-                    <li><i class="icono fas fa-map-marker-alt"></i> Ubicacion.</li>
-                    <li><i class="icono fas fa-share-alt"></i> Redes sociales.</li>
+                    <li><i class="texto"></i> Direccion de usuario: {{direccion}}</li>
+                    <li><i class="texto"></i> Telefono: {{celular}}</li>
+                    <li><i class="texto"></i> Correo: {{correo}}</li>
                 </ul>
             </div>
-            <div class="button">
-                <nav>
-                    <ul>
-                    <button><li><a href="https://www.facebook.com/">faceboock</a></li></button>
-                    <button><li><a href="https://www.instagram.com/?hl=es-lam">instagram</a></li></button>
-                    <button><li><a href="https://www.tiktok.com/es">tiktoc</a></li></button>
-                    <button><li><a href="https://accounts.google.com/signin/v2/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin">Gmail</a></li></button>
-                    </ul>
-                </nav>
-                <div>
-                    <button class="boton"><a href="#">publica </a></button>
-                </div>
+            <div>
+                <button class="boton"><a href="{{url_for('interfaz_publicar')}}">Publicar</a></button> 
+                <!-- TODO: Hacer boton para ver mis productos -->
             </div>
         </div>
     </section>

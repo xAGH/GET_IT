@@ -2,8 +2,18 @@
 
 {% block body %}
 
-<h1>
-    Confirma tu dirección de correo electrónico para completar tu registro.
-</h1>
+{% if confirma %}
+
+    <h1>
+        Confirma tu dirección de correo electrónico para completar tu registro.
+    </h1>
+
+{% elif solicitud %}
+
+    <h1>
+        La solicitud del truque ha sido enviada correctamente.
+    </h1>
+
+{% endif %}
 
 {% endblock %}

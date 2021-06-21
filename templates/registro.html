@@ -31,15 +31,16 @@
                 <input type="password" name="contrasena2" required placeholder="Confirmación contraseña" />
                 <input type="text" name="nombre" required placeholder="Nombres y apellidos" />
                 <input type="text" name="documento" required placeholder="Número de documento" />
+                <input type="text" name="direccion" required placeholder="Dirección de residencia">
                 <input type="text" name="referencia" placeholder="Referenciado por: " />
                 <input type="text" name="celular" required placeholder="Número celular" />
-                <input type="text" name="facebock" placeholder="Facebock Link"/>
-
 
                 <div class="checkboxy">
-                    <label class="terms"> acepto </label><input name="cecky" id="checky" value="1" type="checkbox" />
+                    <label class="terms">Aceptar Términos y Condiciones</label><input name="cecky" id="checky" value="1" type="checkbox" />
                 </div>
                 <input type="submit" value="Registrarse">
+                <br>
+                <p>¿Ya estás registrado? <a href="{{url_for('interfaz_login')}}">Login</a></p>
             
             </div>
     

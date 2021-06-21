@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    {% if mismo%}
+        <h1>No puedes solicitra un truque para tus productos.</h1>
+    
+    {% else %}
+
+    <form action="{{url_for('trueque')}}" method="POST">
+        <div class="header">
+            <h3>Solicitud de trueque</h3>
+        </div>
+            <input type="text" name="ofrezco" required placeholder="Te ofrezco..."/>
+            <label for="des">Indica las especificaciones de lo que ofreces: </label>
+            <textarea name="descripcion" id="des" cols="30" rows="10"></textarea>
+            <input type="submit" value="Enviar solicitud">
+    </form>
+
+    {% endif %}
+
+{% endblock %}

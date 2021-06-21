@@ -7,7 +7,7 @@
     <title>{{ tittle }}</title>
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
 </head>
-
+<body>
 <header>
     <img class="img1" src="{{url_for('static', filename='images/logo.jpeg')}}">
     <h1 class="titulo">GET IT.</h1>
@@ -16,36 +16,14 @@
         <br> ¿Qué esperas?
         <br>¡¡Alguien te esta esperando para el trueque!!
     </h4>
-
+    <h1 style="text-align: center;">No estás autorizado para ingresar a esta ruta.</h1>
     <nav  >
         <center>
 
         <button class="boton"><a href="{{url_for('index')}}">Get It</a></button>
 
-
-        {% if user%}
-
-            <button class="boton"><a href="{{url_for('interfaz_cuenta')}}">Cuenta</a></button>
-            <button class="boton"><a href="{{url_for('logout')}}">Salir</a></button>
-
-        {% else %}
-
-            <button class="boton"><a href="{{url_for('interfaz_login')}}">Ingreso</a></button>
-            <button class="boton"><a href="{{url_for('interfaz_registro')}}">Registro</a></button>  
-
-        {% endif %}
-        
-
         </center>
     </nav>
-
-    
-
-
-<body>
-{% block body %}
-
-{% endblock %}
 </body>
 <footer>. &copy;2021 Derechos reservados pagina  realizada  por   @jhoguia  </footer>
 </html>

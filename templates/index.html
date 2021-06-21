@@ -1,58 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-
-<tbody>
+    {% if i %}
+        <script>alert("Para hacer una solicitud de trueque, debes haber iniciado sesión.")</script>
+    {% endif%}
     <div class="flex-contenedor">
+        {% if productos %}
+            {% for i in range(largor) %}
+                <div class="item">
+                    <h3>{{productos[i][1]}}</h3><br>
+                    <img class="img" src="{{url_for('static', filename='imgs_productos/{{productos[i][10]}}')}}"><br>
+                    <p>{{productos[i][2]}}</p><br>
+                    <h3>Cambio por: {{productos[i][4]}}</h3><br>
+                    {% if user %}
+                    <a href="http://127.0.0.1:5000/solicitudtrueque/{{productos[i][0]}}">TRUEQUE</a>
+                    {% else %}
+                    <a href="http://127.0.0.1:5000/?i=1">TRUEQUE</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
         <div class="item">
-            <h3>ARTICULO</h3><br>
-            <img class="img" src="{{url_for('static', filename='images/logo.jpeg')}}"><br>
-            <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi libero nam dolores impedit accusamus rerum sapiente, labore necessitatibus ad. Cumque, accusamus explicabo tenetur ab distinctio perspiciatis ullam quidem commodi veniam.</P><br>
-            <h3>CAMBIO POR</h3><br>
-            <a href="">TRUEQUE</a>
+            <h3>En este momento no hay productos para mostrar :(</h3>
         </div>
-        <div class="item">
-            <h3>ARTICULO</h3><br>
-            <img class="img" src="{{url_for('static', filename='images/logo.jpeg')}}"><br>
-            <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi libero nam dolores impedit accusamus rerum sapiente, labore necessitatibus ad. Cumque, accusamus explicabo tenetur ab distinctio perspiciatis ullam quidem commodi veniam.</P><br>
-            <h3>CAMBIO POR</h3><br>
-            <a href="">TRUEQUE</a>
-        </div>
-        <div class="item">
-            <h3>ARTICULO</h3><br>
-            <img class="img" src="{{url_for('static', filename='images/logo.jpeg')}}"><br>
-            <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi libero nam dolores impedit accusamus rerum sapiente, labore necessitatibus ad. Cumque, accusamus explicabo tenetur ab distinctio perspiciatis ullam quidem commodi veniam.</P><br>
-            <h3>CAMBIO POR</h3><br>
-            <a href="">TRUEQUE</a>
-        </div>
-        <div class="item">
-            <h3>ARTICULO</h3><br>
-            <img class="img" src="{{url_for('static', filename='images/logo.jpeg')}}"><br>
-            <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi libero nam dolores impedit accusamus rerum sapiente, labore necessitatibus ad. Cumque, accusamus explicabo tenetur ab distinctio perspiciatis ullam quidem commodi veniam.</P><br>
-            <h3>CAMBIO POR</h3><br>
-            <a href="">TRUEQUE</a>
-        </div>
-        <div class="item">
-            <h3>ARTICULO</h3><br>
-            <img class="img" src="{{url_for('static', filename='images/logo.jpeg')}}"><br>
-            <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi libero nam dolores impedit accusamus rerum sapiente, labore necessitatibus ad. Cumque, accusamus explicabo tenetur ab distinctio perspiciatis ullam quidem commodi veniam.</P><br>
-            <h3>CAMBIO POR</h3><br>
-            <a href="">TRUEQUE</a>
-        </div>
-        <div class="item">
-            <h3>ARTICULO</h3><br>
-            <img class="img" src="{{url_for('static', filename='images/logo.jpeg')}}"><br>
-            <P>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi libero nam dolores impedit accusamus rerum sapiente, labore necessitatibus ad. Cumque, accusamus explicabo tenetur ab distinctio perspiciatis ullam quidem commodi veniam.</P><br>
-            <h3>CAMBIO POR</h3><br>
-            <a href="">TRUEQUE</a>
-        </div>
+        {% endif %}
     </div>
-    <li class="button">
-        <div class="item">
-            <button type="button" class="boton"><a href="">cargar mas</a></button>
-        </div>
-    </li>
-</tbody>
-
 
 {% endblock %}

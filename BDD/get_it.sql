@@ -13,7 +13,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema git_it
 -- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema git_it
 -- -----------------------------------------------------
@@ -41,42 +40,38 @@ CREATE TABLE IF NOT EXISTS `get_it`.`usuarios` (
   `idusuarios` INT(11) NOT NULL,
   `nombre` VARCHAR(80) NULL DEFAULT NULL,
   `email` VARCHAR(80) NULL DEFAULT NULL,
-  `clave` VARCHAR(256) NULL DEFAULT NULL,
-  `whatsapp` CHAR(30) NULL DEFAULT NULL,
+  `clave` varchar(50) NOT NULL,
+  `celular` CHAR(15) NULL DEFAULT NULL,
+  `direccion` varchar(200), 
   `referencia` VARCHAR(80) NULL DEFAULT NULL,
   `estrellas` DECIMAL(5,0) NULL DEFAULT NULL,
+  `estado` CHAR(1) NUll DEFAULT 0,
   PRIMARY KEY (`idusuarios`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;
-ALTER table usuarios add column `facebook` char(255) null default "No proporcionado" after `whatsapp`;
 
 -- -----------------------------------------------------
 -- Table `git_it`.`productos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `get_it`.`productos` (
-  `idproducto` INT(11) NOT NULL,
-  `descripcion` VARCHAR(500) NULL DEFAULT NULL,
-  `idusuario` INT(11) NULL DEFAULT NULL,
-  `cambiarpor` VARCHAR(500) NULL DEFAULT NULL,
-  `canjeadopor` VARCHAR(250) NULL DEFAULT NULL,
-  `estado` TINYINT(4) NULL DEFAULT NULL,
-  `fecha_publ` DATE NULL DEFAULT NULL,
-  `fecha_canje` VARCHAR(45) NULL DEFAULT NULL,
-  `tipo` CHAR(2) NULL DEFAULT NULL,
-  `categoria` VARCHAR(80) NULL DEFAULT NULL,
-  PRIMARY KEY (`idproducto`),
-  INDEX `fk_idusuario_producto_idx` (`idusuario` ASC),
-  CONSTRAINT `fk_idusuario_producto`
-    FOREIGN KEY (`idusuario`)
-    REFERENCES `git_it`.`usuarios` (`idusuarios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
+    `idproducto` INT(11) NOT NULL AUTO_INCREMENT,
+    `nombre` varchar(80),
+    `descripcion` VARCHAR(500) NULL DEFAULT NULL,
+    `idusuario` INT(11) NULL DEFAULT NULL,
+    `cambiarpor` VARCHAR(500) NULL DEFAULT NULL,
+    `canjeadopor` VARCHAR(250) NULL DEFAULT NULL,
+    `estado` TINYINT(4) NULL DEFAULT NULL,
+    `fecha_publ` char(10) NULL DEFAULT NULL,
+    `fecha_canje` char(10) NULL DEFAULT NULL,
+    `categoria` CHAR(8) NULL DEFAULT NULL,
+    `img` varchar(255),
+    PRIMARY KEY (`idproducto`),
+    CONSTRAINT `fk_idusuario_producto` FOREIGN KEY (`idusuario`)
+        REFERENCES `usuarios` (`idusuarios`)
+)  ENGINE=INNODB DEFAULT CHARACTER SET=UTF8MB4;
 
 -- -----------------------------------------------------
--- Table `get_it`.`usuario_puntage`
+-- Table `get_it`.`usuario_puntaje`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `get_it`.`usuario_puntaje` (
   `idusuario` INT(11) NOT NULL,
@@ -89,4 +84,3 @@ DEFAULT CHARACTER SET = utf8mb4;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-Alter table usuarios 
