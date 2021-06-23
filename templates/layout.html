@@ -5,43 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ tittle }}</title>
+    <link rel="shortcut icon" href="{{url_for('static', filename='images/logo.jpeg')}}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
 </head>
 
 <header>
-    <img class="img1" src="{{url_for('static', filename='images/logo.jpeg')}}">
-    <h1 class="titulo">GET IT.</h1>
-</header>
-    <h4>"Tu comunidad  de intercambio " 
-        <br> ¿Qué esperas?
-        <br>¡¡Alguien te esta esperando para el trueque!!
-    </h4>
+    <div class=cb>
+        <img class="img1" src="{{url_for('static', filename='images/logo.jpeg')}}">
+        <h1 class="titulo"><a href="{{url_for('index')}}">GET IT.</a></h1>
+        <div>
+        <h4>"Tu comunidad  de intercambio " 
+            <br> ¿Qué esperas?
+            <br>¡¡Alguien te esta esperando para el trueque!!
+        </h4>
+    </div>
+    <div>
+        <nav>
+            <div>
+            {% if confirma or solicitud %}
 
-    <nav  >
-        <center>
+            {% else %}
 
-        <button class="boton"><a href="{{url_for('index')}}">Get It</a></button>
+            {% if user%}
 
+                <div><button class="boton"><a href="{{url_for('interfaz_cuenta')}}">Cuenta</a></button></div>
+                <div> <button class="boton"><a href="{{url_for('interfaz_publicar')}}">Publicar</a></button> </div>
+                <div><button class="boton"><a href="{{url_for('logout')}}">Salir</a></button></div>
 
-        {% if user%}
+            {% else %}
 
-            <button class="boton"><a href="{{url_for('interfaz_cuenta')}}">Cuenta</a></button>
-            <button class="boton"><a href="{{url_for('logout')}}">Salir</a></button>
+                <div><button class="boton"><a href="{{url_for('interfaz_login')}}">Ingreso</a></button></div>
+                <div><button class="boton"><a href="{{url_for('interfaz_registro')}}">Registro</a></button></div>  
 
-        {% else %}
-
-            <button class="boton"><a href="{{url_for('interfaz_login')}}">Ingreso</a></button>
-            <button class="boton"><a href="{{url_for('interfaz_registro')}}">Registro</a></button>  
-
-        {% endif %}
-        
-
-        </center>
-    </nav>
+            {% endif %}
+            {% endif %}
+            </div>
+        </nav>
 
     
 
-
+    </div>
+</header> 
 <body>
 {% block body %}
 

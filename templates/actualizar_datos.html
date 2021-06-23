@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<form id="signup" action="{{url_for('registro')}}" method="POST">
+    
+    <div class="header">
+    
+        <h3>REGISTRO</h3>
+        
+    </div>
+    
+    <div class="sep"></div>
+
+    <div class="inputs">
+        <input id="email" type="email" name="email" required placeholder="Email" autofocus />
+        <input type="password" name="contrasena" required placeholder="Contraseña" />
+        <input type="password" name="contrasena2" required placeholder="Confirmación contraseña" />
+        <input type="text" name="nombre" required placeholder="Nombres y apellidos" />
+        <input type="text" name="documento" required placeholder="Número de documento" />
+        <input type="text" name="direccion" required placeholder="Dirección de residencia">
+        <input type="text" name="referencia" placeholder="Referenciado por: " />
+        <input type="text" name="celular" required placeholder="Número celular" />
+
+        <div class="checkboxy">
+            <label class="terms">Aceptar Términos y Condiciones</label><input name="cecky" id="checky" value="1" type="checkbox" />
+        </div>
+        <input type="submit" value="Registrarse">
+        <br>
+        <p>¿Ya estás registrado? <a href="{{url_for('interfaz_login')}}">Login</a></p>
+    
+    </div>
+
+</form>
+
+{% endblock %}

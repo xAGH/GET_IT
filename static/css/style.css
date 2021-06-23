@@ -2,23 +2,39 @@
 
 header{
 	box-sizing:border-box;
-    background-color: rgba(122, 37, 201, 0.849);
+    background-color: rgba(122, 37, 201, 0.481);
     text-align: left;
 	padding:0px;
-	border:5px double hsla(0, 0%, 6%, 0.082);
+	border:5px double hsla(274, 91%, 5%, 0.118);
 	width:100%;
-    
+    border-radius: 5px;
 }
 
 header img{
-    margin-top: 8px;
-    margin-left: 8px;
 	float:left;
-    width: 110px;
+    width: 100px;
     border:10px double hsl(0, 0%, 3%);
     /*border:1px solid rgb(14, 13, 13)*/
 }
+header .cb{
+    display: flex;
+    justify-content:space-between;
+    padding: 10px;
+    border: 2px solid rgba(36, 7, 70, 0.083);
+}
 
+header nav{
+    display: flex;
+    justify-content:space-between;
+
+}
+
+header nav div{
+    display: flex;
+    flex-direction: column;
+    margin-right: 1%;
+    margin-top: 8px;
+}
 
 h1{
 	color:rgb(9, 15, 1);
@@ -26,42 +42,45 @@ h1{
 	text-transform:uppercase;
 	padding: 0px;
 	margin-top:20px;
-    margin-left:150px;
+    margin-left: 0;
+    font-size: 350%;
     font-family: cursive;
-    font-size:450%;
-    margin-block-end: 25px;
+    margin-block-end: 15px;
     /*border:1px solid rgb(14, 13, 13);*/
 }
+h1 a{
+	background-color:rgba(165, 111, 241, 0);
+    position: absolute;
+    left: 7%;
+}
 
+h2{
+    color:rgba(27, 2, 67, 0.631);
+	text-align:center;
+	text-transform:uppercase;
+    font-size: 250%;
+    margin-block-end: 15px;
+}
 
 h3{
-
     text-align: center;
     color:rgb(14, 2, 27);
     text-transform:uppercase
-
-
 }
-
-
 
 h4{
     text-align: center;
     color:rgb(63, 11, 97);
-    font-size: 150%;
+    font-size: 90%;
+    margin-top: 40px;
+    margin-left: 0;
     text-transform:uppercase;
-
+    position: absolute;
+    left: 40%;
 }
 
 .boton{
-    box-sizing:border-box;
-    padding: 5px 10px;
-    text-align: center;
-    font-size: 150%;
-    border-radius: 8px;
-    font-family: sans-serif;
-
-
+    padding: 0;
 }
 .parrafo{
     text-align:left;
@@ -94,22 +113,22 @@ h4{
 .parrafo1{
     text-align:left;
     text-indent: justify;
-    color: lightsteelblue;
+    color: rgba(176, 202, 222, 0.522);
     font-family: monospace;
     /*border:1px solid rgb(14, 13, 13);*/
 }
 
 .flex-contenedor{
-    width: 100%;
+    width: 99%;
     align-content: center;
     display: flex;
-    background-color: cornflowerblue;
+    background-color: rgba(100, 148, 237, 0.542);
     flex-wrap: wrap;
     border:5px double hsla(0, 0%, 6%, 0.082);
     /*border:1px solid rgb(228, 243, 11);*/
 }
 .flex-contenedor div{
-    background-color: rgb(33, 164, 168);
+    background-color: rgba(33, 164, 168, 0.212);
     width: 32%;
     text-align: center;
     flex-wrap: wrap;
@@ -119,6 +138,8 @@ h4{
 
 .flex-contenedor img{
     width: 90%;
+    max-width: 70%;
+    max-height: 500px;
 }
 
 .p{
@@ -133,10 +154,6 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial;
     padding-top: 20px;
     /*border:1px solid rgb(153, 5, 5);*/
-}
-
-tbody{
-
 }
 
 input{
@@ -157,7 +174,7 @@ a{
 }
 
 a{
-	background-color:rgba(228, 219, 241, 0.582);
+	background-color:rgba(228, 219, 241, 0.493);
 	color:rgb(15, 15, 15);
 	padding:5px 20px;
 	margin:2px 10px;
@@ -180,12 +197,12 @@ div{
     /*border:9px solid rgb(16, 165, 48);*/
 }
 
-.item{
+.item{ /* TODO */
     box-sizing:border-box;
     text-align: center;
 	border:5px double hsla(0, 0%, 6%, 0.082);
 	width:30%;
-
+    position: relative;
 }
 
 section img{
@@ -417,7 +434,6 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 12px rgba(0, 0, 0, .2);
     position: absolute;
-    bottom: -40px;
     left: calc(50% - 90px);
     z-index: 1;
 }
@@ -467,11 +483,11 @@ body {
 .lista-datos {
     width: 60%;
     list-style: none;
-    background-color: #BC3CFF;
+    background-color: #7216f312;
     text-align: left;
 }
 .lista-datos {
-    width: 50%;
+    width: 98%;
     list-style: none;
 }
 
@@ -508,4 +524,40 @@ body {
     color: #fff;
     box-shadow: 0 0 12px rgba(0, 0, 0, .2);
     font-size: 1.3rem;
+}
+textarea {
+    overflow: auto;
+}
+/*
+input .file{
+    appearance: none;
+    background-color: initial;
+    cursor: default;
+    align-items: baseline;
+    color: inherit;
+    text-overflow: ellipsis;
+    white-space: pre;
+    text-align: start !important;
+    padding: initial;
+    border: initial;
+    overflow: hidden !important
+
+}*/
+.input.file{
+    background-color: #BC3CFF;
+}
+
+.btn_trueque{
+    position: absolute;
+    bottom: 0;
+}
+
+#preview img{
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.cambiar_foto{
+    position: absolute;
+    bottom: 0;
 }

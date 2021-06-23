@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `get_it`.`usuarios` (
   `referencia` VARCHAR(80) NULL DEFAULT NULL,
   `estrellas` DECIMAL(5,0) NULL DEFAULT NULL,
   `estado` CHAR(1) NUll DEFAULT 0,
+  `img` varchar(255),
   PRIMARY KEY (`idusuarios`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4;

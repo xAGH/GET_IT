@@ -2,31 +2,37 @@
 
 {% block body %}
 
+    <div class="container">
 
-<div class="container">
-
-    <form id="publica" action="{{url_for('publicar')}}" method="POST" enctype="multipart/form-data">
-        <div class="input">
+        <form id="signup" action="{{url_for('publicar')}}" method="POST" enctype="multipart/form-data">
+    
+            <div class="header">
             
-            <div>
-            <h3>PUBLICAR</h3><br>
-            <label for="">Categoria: </label>
-            <input type="radio" name="PoS" value="P"> Producto
-            <input type="radio" name="PoS" value="S"> Servicio
-            <br>
-
-            <p>Nombre: <input type="text" name="nombre" size="40"required placeholder=""></p>
-            <p>Cambio por: <input type="text" name="cambio"size="40"/></p>
-            <p>Descripcion: <textarea type="text" name="descripcion"></textarea></p>
-            <p>Imagen: <input type=file size=60 name="file1" required placeholder=""></p><br><br>
-        
-            <hr>
-            <input type="submit" value="Enviar">
-            <input type="reset" value="Borrar">
+                <h3>PUBLICAR</h3>
+                
             </div>
-        </div>
-    </form>
+            
+            <div class="sep"></div>
+                <div>
+                    <label for="">Categoria: </label>
+                    <input type="radio" name="PoS" value="P"> Producto
+                    <input type="radio" name="Pos" value="S"> Servicio
+                </div>
+            <class class="inputs">
 
-</div>
-
+                <input type="text" name="encabezado" required placeholder="Encabezado" />
+                <input type="text" name="cambio" required placeholder="Cambio por" />        
+                <textarea type="text" name="duser_message" required placeholder="Descripcion"maxlength="4096"style="width: 345px; height: 100px;"></textarea><br><br>
+                <input type=file size=100px name="file1" id="file" required placeholder="Incertar imagen">
+                <div id="preview"></div>
+                <div>
+                <hr>
+                <input type="submit" value="Enviar">
+                <input type="reset" value="Borrar">
+                </div>
+            </div>   
+        </form>
+    
+    </div>
+<script src="{{url_for('static', filename='js/img.js')}}"></script>
 {% endblock %}

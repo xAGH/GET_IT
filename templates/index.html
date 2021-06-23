@@ -4,18 +4,26 @@
     {% if i %}
         <script>alert("Para hacer una solicitud de trueque, debes haber iniciado sesión.")</script>
     {% endif%}
+    <div class="header">
+        <div>
+            <center>
+            <h2>VITRINA</h2>
+            </center>
+        </div>
+
+    </div>
     <div class="flex-contenedor">
         {% if productos %}
             {% for i in range(largor) %}
                 <div class="item">
                     <h3>{{productos[i][1]}}</h3><br>
-                    <img class="img" src="{{url_for('static', filename='imgs_productos/{{productos[i][10]}}')}}"><br>
+                    <img class="img" src="../static/imgs_productos/{{productos[i][10]}}"><br>
                     <p>{{productos[i][2]}}</p><br>
                     <h3>Cambio por: {{productos[i][4]}}</h3><br>
                     {% if user %}
-                    <a href="http://127.0.0.1:5000/solicitudtrueque/{{productos[i][0]}}">TRUEQUE</a>
+                    <a class="btn_trueque" href="http://127.0.0.1:5000/solicitudtrueque/{{productos[i][0]}}">TRUEQUE</a>
                     {% else %}
-                    <a href="http://127.0.0.1:5000/?i=1">TRUEQUE</a>
+                    <a class="btn_trueque" href="http://127.0.0.1:5000/?i=1">TRUEQUE</a>
                     {% endif %}
                 </div>
             {% endfor %}

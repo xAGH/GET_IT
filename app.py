@@ -57,13 +57,14 @@ def index():
 # Interfaz de registro.
 @app.route('/interfazregistro')
 def interfaz_registro():
+    i = request.args.get('i')
     tittle = "Registro"
     contrasena = request.args.get('contrasena')
     email = request.args.get('email')
     if "user" in session:
         tittle = "No autorizado"
         return render_template('error.html', tittle=tittle)
-    return render_template('registro.html', tittle=tittle, contrasena=contrasena, email=email)
+    return render_template('registro.html', tittle=tittle, contrasena=contrasena, email=email, i=i)
 
 # Interfaz de login.
 @app.route('/interfazlogin')
@@ -76,6 +77,16 @@ def interfaz_login():
         tittle = "No autorizado"
         return render_template('error.html', tittle=tittle)
     return render_template('ingreso.html', tittle=tittle, usuario=usuario, clave=clave)
+
+# Cambio de datos
+@app.route('/actualizardatos')
+def actualizar_datos():
+    tittle = 'Actualizar datos.'
+    if 'user' in session:
+        return render_template('actualizar_datos.html', tittle=tittle, user=1)
+
+    tittle = "No autorizado"
+    return render_template('error.html', tittle=tittle)
 
 # Interfaz de publicar. 
 @app.route('/interfazpublicar')
@@ -92,48 +103,52 @@ def interfaz_publicar():
 # Registro
 @app.route('/registro', methods=['POST'])
 def registro():
-    email = request.form.get('email')
-    contrasena = request.form.get('contrasena')
-    contrasena2 = request.form.get('contrasena2')
-    nombre = request.form.get('nombre')
-    documento = request.form.get('documento')
-    direccion = request.form.get('direccion')
-    referencia = request.form.get('referencia')
-    celular = request.form.get('celular')
+    try: 
+        email = request.form.get('email')
+        contrasena = request.form.get('contrasena')
+        contrasena2 = request.form.get('contrasena2')
+        nombre = request.form.get('nombre')
+        documento = request.form.get('documento')
+        direccion = request.form.get('direccion')
+        referencia = request.form.get('referencia')
+        celular = request.form.get('celular')
 
-    db = sql.connect(**config)
-    cursor = db.cursor()
-    cursor.execute("""SELECT email from usuarios where email=%s""",[email])
-    email_registrado = cursor.fetchall()
-    
+        db = sql.connect(**config)
+        cursor = db.cursor()
+        cursor.execute("""SELECT email from usuarios where email=%s""",[email])
+        email_registrado = cursor.fetchall()
+        
 
-    if len(email_registrado) > 0:
-        db.close()
-        return redirect(url_for('interfaz_registro',email='invalid'))
-    
-    else:
-
-        if contrasena == contrasena2:
-            cursor.execute("""INSERT INTO usuarios(idusuarios,nombre,email,clave,celular,direccion,referencia, estado)
-            VALUES (%s,%s, %s, %s, %s, %s,%s, "0")""",
-            [documento, nombre, email, contrasena, celular,direccion, referencia])
-            db.commit()
+        if len(email_registrado) > 0:
             db.close()
-            mensaje = """
-    <html>
-        <body>
-            <p style="text-align: center;"><span style="color: #ff0000;"><strong>Confirma tu correo para poder seguir</strong></span></p>
-            <p style="text-align: center;"><strong></strong></p>
-            <p><a href="http://127.0.0.1:5000/registrado/{}" rel="noopener">Confirma</a></p>
-        </body>
-    </html>
-    """.format(documento)
-            subject = "Confirmación de correo"
-            envio_correo(mensaje,subject,email)
-            return render_template('confirma.html', tittle='Confirma tu correo electrónico', confirma=1, user=1)
+            return redirect(url_for('interfaz_registro',email='invalid'))
+        
+        else:
 
-        db.close()
-        return redirect(url_for('interfaz_registro',contrasena='invalid'))
+            if contrasena == contrasena2:
+                cursor.execute("""INSERT INTO usuarios(idusuarios,nombre,email,clave,celular,direccion,referencia, estado)
+                VALUES (%s,%s, %s, %s, %s, %s,%s, "0")""",
+                [documento, nombre, email, contrasena, celular,direccion, referencia])
+                db.commit()
+                db.close()
+                mensaje = """
+        <html>
+            <body>
+                <p style="text-align: center;"><span style="color: #ff0000;"><strong>Confirma tu correo para poder seguir</strong></span></p>
+                <p style="text-align: center;"><strong></strong></p>
+                <p><a href="http://127.0.0.1:5000/registrado/{}" rel="noopener">Confirma</a></p>
+            </body>
+        </html>
+        """.format(documento)
+                subject = "Confirmación de correo"
+                envio_correo(mensaje,subject,email)
+                return render_template('confirma.html', tittle='Confirma tu correo electrónico', confirma=1, user=1)
+
+            db.close()
+            return redirect(url_for('interfaz_registro',contrasena='invalid'))
+
+    except:
+        return redirect(url_for('interfaz_registro',i=1))
 
 # Registro completado.
 @app.route('/registrado/<id_usuario>')
@@ -207,12 +222,13 @@ def interfaz_cuenta():
         cursor.execute("""SELECT * from usuarios where idusuarios=%s""",[id_usuario])
         datos = cursor.fetchone()
         db.close()
+        idusuarios = datos[0]
         nombre = datos[1]
         correo = datos[2]
         celular = datos[4]
         direccion = datos[5]
         referenciado = datos[6]
-        return render_template('cuenta.html', user=1, tittle=tittle, nombre=nombre,correo=correo,celular=celular,referenciado=referenciado,direccion=direccion)
+        return render_template('cuenta.html', user=1, tittle=tittle,idusuarios=idusuarios, nombre=nombre,correo=correo,celular=celular,referenciado=referenciado,direccion=direccion)
 
     tittle = 'No autorizado'
     return render_template('error.html', tittle=tittle)
@@ -220,10 +236,10 @@ def interfaz_cuenta():
 @app.route('/publicar', methods=['POST'])
 def publicar():
     categoria = request.form.get('PoS')
-    nombre = request.form.get('nombre')
+    nombre = request.form.get('encabezado')
     cambio = request.form.get('cambio')
     estado = 1
-    descripcion = request.form.get('descripcion')
+    descripcion = request.form.get('duser_message')
     f = request.files['file1']
     filename = secure_filename(f.filename)
     f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -251,12 +267,13 @@ def solicitud_truque(idproducto):
         idusuario_solicitante = session['user']
 
         if idusuario_solicitante == idusuario_dueno:
-            return render_template('solicitud_trueque.html', tittle=tittle, mismo=1, user=1)
+            return render_template('solicitud_trueque.html', tittle=tittle, mismo=1, user=1, solicitud=1)
 
         tittle = "Solicitud de treque"
-        return render_template('solicitud_trueque.html', tittle=tittle, idproducto=idproducto)
+        return render_template('solicitud_trueque.html', tittle=tittle, idproducto=idproducto, user=1)
         
     return redirect(url_for('index'))
+
 
 @app.route('/trueque', methods=['POST'])
 def trueque():
@@ -324,6 +341,8 @@ def envio_correo(mensaje, subject, email):
 
     # Cerramos conexión
     mailServer.close()
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -7,13 +7,13 @@
                 <div class="usuario-avatar">
                     <img src="https://thumbs.dreamstime.com/z/icono-del-avatar-usuario-bot%C3%B3n-s%C3%ADmbolo-perfil-plano-de-la-persona-vector-131363829.jpg" alt="img-avatar">
                 </div>
+                <center><a class='cambiar_foto' href="http://127.0.0.1:5000/actualizardatos/{{idusuarios}}">CCambiar foto de perfil</a></center>>
             </div>
         </div>
         <div class="usuario-body">
             <div class="usuario-bio">
                 <h3 class="titulo">{{nombre}}</h3>
-                <p class="texto">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p class="texto">     </p>
             </div>
             <div class="usuario-footer">
                 <ul class="lista-datos">
@@ -22,14 +22,8 @@
                     <li><i class="texto"></i> Correo: {{correo}}</li>
                 </ul>
             </div>
-            <div>
-                <button class="boton"><a href="{{url_for('interfaz_publicar')}}">Publicar</a></button> 
-                <!-- TODO: Hacer boton para ver mis productos -->
-            </div>
+
         </div>
     </section>
 
 {% endblock %}
-</body>
-<footer>. &copy;2021 Derechos reservados pagina  realizada  por   @jhoguia  </footer>
-</html>

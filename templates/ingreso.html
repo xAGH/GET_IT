@@ -14,24 +14,28 @@
 
   <div class="container">
       
-    <form id="login" action="{{url_for('login')}}" method="POST">
+    <form id="signup" action="{{url_for('login')}}" method="POST">
+      
       <div class="header">
+
         <h3>INGRESO</h3>
-        </div>
+
+      </div>
+
+        <div class="sep"></div>
+
           <div class="inputs">
 
               <input type="text" placeholder="Correo" name="usuario" size="40">
               <input type="password" placeholder="Contraseña" name="contrasena">
-              <p>No eres un robot:
-                <input type="radio" name="hm" value="h"> no soy robot
-              </p>
-              <p>
+              
+              <div class="checkboxy">
+                <label class="terms">No eres un robot:</label><input name="cecky" id="checky" value="1" type="checkbox" />
+              </div>
                 <input type="submit" value="Entrar">
                 <input type="reset" value="Borrar">
-              </p>
-              <p>¿No estas   registrado? <a href="{{url_for('interfaz_registro')}}">REGISTRATE</a></p>
           </div>
-      </div>   
+              <div>¿No estas   registrado? <a href="{{url_for('interfaz_registro')}}">REGISTRATE</a></div>
       
     </form> 
   </div>
