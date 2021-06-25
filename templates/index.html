@@ -13,21 +13,23 @@
 
     </div>
     <div class="flex-contenedor">
-        {% if productos %}
+        {% if p==1 %}
             {% for i in range(largor) %}
-                <div class="item">
-                    <h3>{{productos[i][1]}}</h3><br>
-                    <img class="img" src="../static/imgs_productos/{{productos[i][10]}}"><br>
-                    <p>{{productos[i][2]}}</p><br>
-                    <h3>Cambio por: {{productos[i][4]}}</h3><br>
-                    {% if user %}
-                    <a class="btn_trueque" href="http://127.0.0.1:5000/solicitudtrueque/{{productos[i][0]}}">TRUEQUE</a>
-                    {% else %}
-                    <a class="btn_trueque" href="http://127.0.0.1:5000/?i=1">TRUEQUE</a>
-                    {% endif %}
-                </div>
+                {% if productos[i][6] == '1' %}
+                    <div class="item">
+                        <h3>{{productos[i][1]}}</h3><br>
+                        <img class="img" src="../static/imgs_productos/{{productos[i][10]}}"><br>
+                        <p>{{productos[i][2]}}</p><br>
+                        <h3>Cambio por: {{productos[i][4]}}</h3><br>
+                        {% if user %}
+                        <a class="btn_trueque" href="http://127.0.0.1:5000/solicitudtrueque/{{productos[i][0]}}">TRUEQUE</a>
+                        {% else %}
+                        <a class="btn_trueque" href="http://127.0.0.1:5000/?i=1">TRUEQUE</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             {% endfor %}
-        {% else %}
+        {% elif p == 0 %}
         <div class="item">
             <h3>En este momento no hay productos para mostrar :(</h3>
         </div>

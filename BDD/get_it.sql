@@ -20,24 +20,10 @@ CREATE SCHEMA IF NOT EXISTS `get_it` DEFAULT CHARACTER SET utf8mb4 ;
 USE `get_it` ;
 
 -- -----------------------------------------------------
--- Table `git_it`.`producto_canje`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `get_it`.`producto_canje` (
-  `idregistro` INT(11) NOT NULL AUTO_INCREMENT,
-  `idproducto` INT(11) NULL DEFAULT NULL,
-  `nombre` VARCHAR(80) CHARACTER SET 'utf8' NULL DEFAULT NULL,
-  `canjeado` CHAR(2) NULL DEFAULT NULL,
-  `producto_canjecol` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idregistro`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
-
-
--- -----------------------------------------------------
 -- Table `git_it`.`usuarios`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `get_it`.`usuarios` (
-  `idusuarios` INT(11) NOT NULL,
+  `idusuarios` INT(15) NOT NULL,
   `nombre` VARCHAR(80) NULL DEFAULT NULL,
   `email` VARCHAR(80) NULL DEFAULT NULL,
   `clave` varchar(50) NOT NULL,
@@ -60,26 +46,31 @@ CREATE TABLE IF NOT EXISTS `get_it`.`productos` (
     `descripcion` VARCHAR(500) NULL DEFAULT NULL,
     `idusuario` INT(11) NULL DEFAULT NULL,
     `cambiarpor` VARCHAR(500) NULL DEFAULT NULL,
-    `canjeadopor` VARCHAR(250) NULL DEFAULT NULL,
-    `estado` TINYINT(4) NULL DEFAULT NULL,
+    `canjeadopor` int(11) NULL DEFAULT NULL,
+    `estado` CHAR(1) NULL DEFAULT '1',
     `fecha_publ` char(10) NULL DEFAULT NULL,
     `fecha_canje` char(10) NULL DEFAULT NULL,
     `categoria` CHAR(8) NULL DEFAULT NULL,
     `img` varchar(255),
     PRIMARY KEY (`idproducto`),
-    CONSTRAINT `fk_idusuario_producto` FOREIGN KEY (`idusuario`)
-        REFERENCES `usuarios` (`idusuarios`)
+	FOREIGN KEY `fk_idusuario_producto` (`idusuario`) REFERENCES `usuarios` (`idusuarios`),
+    FOREIGN KEY `fk_usuarios_canjeadopor_productos` (`canjeadopor`) REFERENCES `usuarios` (`idusuarios`)
 )  ENGINE=INNODB DEFAULT CHARACTER SET=UTF8MB4;
 
--- -----------------------------------------------------
--- Table `get_it`.`usuario_puntaje`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `get_it`.`usuario_puntaje` (
-  `idusuario` INT(11) NOT NULL,
-  `idproducto` INT(11) NULL DEFAULT NULL,
-  `estrellas` TINYINT(10) NULL DEFAULT NULL)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE `procesos_trueque` (
+	`idproceso` int(10) not null auto_increment primary key,
+    `usuario_dueno` int(15) not null,
+    `usuario_solicitante` int(15) not null,
+    `producto` int(11),
+    `estado` char(1) default '0',
+    `datos_cambio_descripcion` text(1000),
+    `datos_cambio_ofrezco` varchar(100),
+    foreign key `usuarios_idusuarios_procesos` (usuario_dueno) references usuarios(idusuarios),
+    foreign key `usuarios_idusuarios2_procesos` (usuario_solicitante) references usuarios(idusuarios),
+    foreign key `productos_idproductos_procesos` (producto) references productos(idproducto)
+);
+
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

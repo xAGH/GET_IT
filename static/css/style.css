@@ -197,7 +197,7 @@ div{
     /*border:9px solid rgb(16, 165, 48);*/
 }
 
-.item{ /* TODO */
+.item{
     box-sizing:border-box;
     text-align: center;
 	border:5px double hsla(0, 0%, 6%, 0.082);

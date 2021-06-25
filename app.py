@@ -48,11 +48,18 @@ def index():
     cursor.execute("""SELECT * FROM productos""")
     productos = cursor.fetchall()
     db.close
+    p = 0
+    for i in range(len(productos)):
+        if productos[i][6] == '1':
+            p = 1
+        else:
+            p = 0
     largor = len(productos)
     tittle = "Get It"
     if "user" in session:
-        return render_template('index.html', tittle=tittle, user=1, productos=productos, largor=largor)
-    return render_template('index.html', tittle=tittle, productos=productos, largor=largor, i=i)
+        return render_template('index.html', tittle=tittle, user=1, productos=productos, largor=largor, p=p)
+
+    return render_template('index.html', tittle=tittle, productos=productos, largor=largor, i=i, p=p)
 
 # Interfaz de registro.
 @app.route('/interfazregistro')
@@ -278,6 +285,7 @@ def solicitud_truque(idproducto):
 @app.route('/trueque', methods=['POST'])
 def trueque():
     producto = ids[0]
+    solicitante = session['user']
     cambio = request.form.get('ofrezco')
     descripcion = request.form.get('descripcion')
     db = sql.connect(**config)
@@ -289,7 +297,7 @@ def trueque():
     nombre_dueno = datos_dueno[0][0]
     email_dueno = datos_dueno[0][1]
 
-    cursor.execute("""SELECT nombre,email,celular FROM usuarios WHERE idusuarios=%s""",[session['user']])
+    cursor.execute("""SELECT nombre,email,celular FROM usuarios WHERE idusuarios=%s""",[solicitante])
     datos_ofrece = cursor.fetchall()
     nombre_ofrece = datos_ofrece[0][0]
     email_ofrece = datos_ofrece[0][1]
@@ -298,6 +306,12 @@ def trueque():
 
     cursor.execute("""SELECT nombre FROM productos WHERE idproducto=%s""",[producto])
     nombre_producto = cursor.fetchone()[0]
+
+    cursor.execute("""INSERT INTO procesos_trueque(usuario_dueno, usuario_solicitante, producto, datos_cambio_descripcion, datos_cambio_ofrezco) VALUES(%s,%s,%s, %s, %s)""",[dueno, solicitante, producto, descripcion, cambio])
+    db.commit()
+    
+    cursor.execute("""SELECT idproceso FROM procesos_trueque WHERE producto=%s""", [producto])
+    id_proceso = cursor.fetchone()[0]
 
     db.close()
     subject = "Solicitud de trueque."
@@ -312,13 +326,82 @@ def trueque():
             <li>Correo: {email_ofrece}</li>
             <li>Celular: {celular_ofrece}</li>
             </ul>
-            <p><a style="color:green;" href="#">Aceptar</a></p>
-            <p><a style="color:red;" href="#">Denegar</a></p>
+            <p><a style="color:green;" href="http://127.0.0.1:5000/procesotrueque/{id_proceso}?status=acepted">Aceptar</a></p>
+            <p><a style="color:red;" href="http://127.0.0.1:5000/procesotrueque/{id_proceso}?status=denied">Denegar</a></p>
         </body>
     </html>
     """
     envio_correo(mensaje, subject, email_dueno)
     return render_template("confirma.html", solicitud=1, user=1, tittle='Correo enviado')
+# TODO Crear ruta para actualizar datos
+
+@app.route('/procesotrueque/<id_proceso>', methods=['POST', 'GET'])
+def proceso_trueque(id_proceso):
+    id_proceso = id_proceso
+    status = request.args.get('status')
+    status = 1 if status=='acepted' else 0
+    db = sql.connect(**config)
+    cursor = db.cursor()
+    cursor.execute("""SELECT usuario_dueno, usuario_solicitante, producto from procesos_trueque WHERE idproceso=%s""", [id_proceso])
+    datos = cursor.fetchall()
+    usuario_dueno = datos[0][0]
+    usuario_solicitante = datos[0][1]
+    producto = datos[0][2]
+
+    cursor.execute("""SELECT nombre, descripcion, cambiarpor, img FROM productos WHERE idproducto=%s """,[producto])
+    datos_producto = cursor.fetchall()
+
+    cursor.execute("""SELECT datos_cambio_descripcion, datos_cambio_ofrezco FROM procesos_trueque WHERE idproceso = %s""",[id_proceso])
+    datos_cambio = cursor.fetchall()
+
+    cursor.execute("""SELECT nombre, email, celular, direccion FROM usuarios WHERE idusuarios=%s """,[usuario_solicitante])
+    datos_solicitante = cursor.fetchall()
+
+    cursor.execute("""SELECT nombre, email, celular, direccion FROM usuarios WHERE idusuarios=%s """,[usuario_dueno])
+    datos_dueno = cursor.fetchall()
+    
+    db.close()
+    if status == 0:
+        mensaje = f"""
+    <html>
+        <body>
+            <p style="text-align: center;"><span style="color: #ff0000;"><strong>Hola {datos_solicitante[0][0]}</strong></span></p>
+            <p"><b>{datos_dueno[0][0]}</b> ha respondido a tu solicitud de trueque.
+            <br>
+            <p><a style="color:green;" href="http://127.0.0.1:5000/procesotrueque/{id_proceso}?status=denied"">Ver respuesta.</a></p>
+        </body>
+    </html>
+    """
+    elif status == 1:
+        mensaje = f"""
+    <html>
+        <body>
+            <p style="text-align: center;"><span style="color: #ff0000;"><strong>Hola {datos_solicitante[0][0]}</strong></span></p>
+            <p"><b>{datos_dueno[0][0]}</b> ha respondido a tu solicitud de trueque.
+            <br>
+            <p><a style="color:green;" href="http://127.0.0.1:5000/procesotrueque/{id_proceso}?status=acepted"">Ver respuesta.</a></p>
+        </body>
+    </html>
+    """
+    envio_correo(mensaje, "Respuesta a solicitud dde trueque.", datos_solicitante[0][1])
+    
+    if status == 1:
+        fecha = date.today().strftime('%d/%m/%Y')
+        db = sql.connect(**config)
+        cursor = db.cursor()
+        cursor.execute("""UPDATE productos SET estado='0', canjeadopor=%s, fecha_canje=%s WHERE idproducto=%s""",[usuario_solicitante, fecha, producto])
+        db.commit()
+        db.close()
+
+    tittle = "Proceso de trueque"
+    usuario_sesion = str(session['user'])
+
+    if usuario_sesion == str(usuario_dueno) or usuario_sesion == str(usuario_solicitante):    
+        return render_template('procesos_trueque.html', tittle=tittle, status=status, datos_producto=datos_producto, datos_cambio=datos_cambio, datos_solicitante=datos_solicitante, datos_dueno=datos_dueno)
+   
+    tittle = 'No autorizado'
+    return render_template('error.html', tittle=tittle)
+
 
 def envio_correo(mensaje, subject, email):
 
