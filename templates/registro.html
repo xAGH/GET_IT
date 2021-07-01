@@ -4,15 +4,24 @@
 
     {% if email %}
 
-        <script>alert('El email ya se encuentra registrado.')</script>
+        <script>
+        alert('El email ya se encuentra registrado.');
+        window.location = '{{url_for("interfaz_registro")}}'
+        </script>
 
     {% elif contrasena %}
 
-        <script>alert('Las contraseñas no coinciden.')</script>
+        <script>
+        alert('Las contraseñas no coinciden.');
+        window.location = '{{url_for("interfaz_registro")}}'
+        </script>
 
     {% elif i %}
 
-        <script>alert('Los datos ingresados no corresponden o ya están registrados.')</script>
+        <script>
+            alert('Los datos ingresados no corresponden o ya están registrados.');
+            window.location = '{{url_for("interfaz_registro")}}'
+        </script>
 
     {% endif %}
 
@@ -30,17 +39,16 @@
             <div class="sep"></div>
     
             <div class="inputs">
-                <input id="email" type="email" name="email" required placeholder="Email" autofocus />
-                <input type="password" name="contrasena" required placeholder="Contraseña" />
-                <input type="password" name="contrasena2" required placeholder="Confirmación contraseña" />
-                <input type="text" name="nombre" required placeholder="Nombres y apellidos" />
-                <input type="text" name="documento" required placeholder="Número de documento" />
+                <input id="email" type="email" name="email" required placeholder="Email" autofocus>
+                <input type="password" name="contrasena" required placeholder="Contraseña" autofocus>
+                <input type="password" name="contrasena2" required placeholder="Confirmación contraseña" autofocus>
+                <input type="text" name="nombre" required placeholder="Nombres y apellidos" autofocus>
+                <input type="text" name="documento" required placeholder="Número de documento" autofocus>
                 <input type="text" name="direccion" required placeholder="Dirección de residencia">
-                <input type="text" name="referencia" placeholder="Referenciado por: " />
-                <input type="text" name="celular" required placeholder="Número celular" />
+                <input type="text" name="celular" required placeholder="Número celular" autofocus>
 
                 <div class="checkboxy">
-                    <label class="terms">Aceptar Términos y Condiciones</label><input name="cecky" id="checky" value="1" type="checkbox" />
+                    <label class="terms">Aceptar Términos y Condiciones</label><input name="cecky" id="checky" value="1" type="checkbox" autofocus>
                 </div>
                 <input type="submit" value="Registrarse">
                 <br>

@@ -2,17 +2,10 @@
 
 {% block body %}
 
-    {% if mismo %}
-        <script>
-            alert("Para hacer una solicitud de trueque, debes haber iniciado sesión.");
-            window.location = '{{url_for("index")}}'
-        </script>
-    {% endif %}
-
     <div class="header">
         <div>
             <center>
-            <h2>VITRINA</h2>
+            <h2>MIS PRODUCTOS</h2>
             </center>
         </div>
 
@@ -27,17 +20,14 @@
                     <img class="img" src="../static/imgs_productos/{{productos[i][10]}}"><br>
                     <p>{{productos[i][2]}}</p><br>
                     <h3>Cambio por: {{productos[i][4]}}</h3><br>
-                    {% if user %}
-                    <a class="btn_trueque" href="http://127.0.0.1:5000/solicitudtrueque/{{productos[i][0]}}">TRUEQUE</a>
-                    {% else %}
-                    <a class="btn_trueque" href="http://127.0.0.1:5000?i=True">TRUEQUE</a>
-                    {% endif %}
+                    <a class="btn_borrar" href="http://127.0.0.1:5000/eliminar_producto/{{productos[i][0]}}">ELIMINAR</a>
+                    <a class="btn_editar" href="http://127.0.0.1:5000/editar_producto/{{productos[i][0]}}">EDITAR</a>
                 </div>
             {% endif %}
         {% endfor %}
     {% else %}
         <div class="item">
-            <h3>En este momento no hay productos para mostrar :(</h3>
+            <h3>En este momento no tienes productos para cambiar. :(</h3>
         </div>
     {% endif %}
 

@@ -22,13 +22,13 @@
     <div>
         <nav>
             <div>
-            {% if confirma or solicitud %}
+            {% if confirma or solicitud or error %}
 
             {% else %}
 
             {% if user%}
 
-                <div><button class="boton"><a href="{{url_for('interfaz_cuenta')}}">Cuenta</a></button></div>
+                <div><button class="boton"><a href="{{url_for('interfaz_cuenta')}}">Cuenta de {{nombre_cuenta}}</a></button></div>
                 <div> <button class="boton"><a href="{{url_for('interfaz_publicar')}}">Publicar</a></button> </div>
                 <div><button class="boton"><a href="{{url_for('logout')}}">Salir</a></button></div>
 
@@ -50,6 +50,8 @@
 {% block body %}
 
 {% endblock %}
+<script src="{{ url_for('static', filename='js/main.js')}}"></script>
 </body>
-<footer>. &copy;2021 Derechos reservados pagina  realizada  por   @jhoguia  </footer>
+<div class="sep"><br></div>
+<footer>&copy;2021 Derechos reservados página realizada por Jhoguia</footer>
 </html>

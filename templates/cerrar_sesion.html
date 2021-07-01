@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    <script>
+        alert("Has cerrado sesión");
+        window.location = '{{url_for("index")}}'
+    </script>
+
+{% endblock %}

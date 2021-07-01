@@ -26,11 +26,9 @@ CREATE TABLE IF NOT EXISTS `get_it`.`usuarios` (
   `idusuarios` INT(15) NOT NULL,
   `nombre` VARCHAR(80) NULL DEFAULT NULL,
   `email` VARCHAR(80) NULL DEFAULT NULL,
-  `clave` varchar(50) NOT NULL,
+  `clave` varchar(300) NOT NULL,
   `celular` CHAR(15) NULL DEFAULT NULL,
   `direccion` varchar(200), 
-  `referencia` VARCHAR(80) NULL DEFAULT NULL,
-  `estrellas` DECIMAL(5,0) NULL DEFAULT NULL,
   `estado` CHAR(1) NUll DEFAULT 0,
   `img` varchar(255),
   PRIMARY KEY (`idusuarios`))

@@ -2,34 +2,43 @@
 
 {% block body %}
 
-        <h1>Resultado de trueque</h1>
-        <div>
-            <h3>Propietario</h3>
-            <p><b>{{datos_dueno[0][0]}}</b> con email <b>{{datos_dueno[0][1]}}</b>, número telefónico <b>{{datos_dueno[0][2]}}</b> y 
-                dirección de residencia <b>{{datos_dueno[0][3]}}</b>; publicó un trueque solicitando <b>{{datos_producto[0][2]}}</b>
-                a cambio de <b>{{datos_producto[0][0]}}</b>
-            </p>
-            <br>
-            <p>A lo que...</p>    
-            <h3>Solicitante</h3>
-            <p>
-                <b>{{datos_solicitante[0][0]}}</b> con email <b>{{datos_solicitante[0][1]}}</b>, número telefónico <b>{{datos_solicitante[0][2]}}</b> y 
-                dirección de residencia <b>{{datos_solicitante[0][3]}}</b>; ofreció <b>{{datos_cambio[0][1]}}</b> con especificaciones
-                <b>{{datos_cambio[0][0]}}</b>.
-            </p>
-            <br>
-            <h3>Resultado de petición.</h3>
-            {% if status == 1 %}
-            <p>
-                El trueque ha sido <b>ACEPTADO</b> por el responsable de la publicación, los datos almacenados seran tratados según
-                los términos y condiciones. Se puede dar paso a un encuentro para que el cambio de los productos se satisfaga.
-            </p>
-            {% elif status == 0 %}
-            <p>
-                El trueque ha sido <b>DENEGADO</b> por el responsable de la publicación. El cambio no se aceptó.
-            </p>
-            {% endif %}
-        </div>
+<h1 class="resultado_trueque">Resultado de trueque</h1>
+<div class="container_resultado">
+    <div class="propietario">
+        <h3>Propietario</h3>
+        <p><b>{{datos_dueno[0][0]}}</b> con email <b>{{datos_dueno[0][1]}}</b>, número telefónico <b>{{datos_dueno[0][2]}}</b> y 
+        dirección de residencia <b>{{datos_dueno[0][3]}}</b>; publicó un trueque solicitando <b>{{datos_producto[0][2]}}</b>
+        a cambio de <b>{{datos_producto[0][0]}}</b>
+    </p>
+    <br>
+    </div>
+    <p class="conector">A lo que el...</p>    
+    <div class="solicitante">
+        <h3>Solicitante</h3>
+        <p>
+        <b>{{datos_solicitante[0][0]}}</b> con email <b>{{datos_solicitante[0][1]}}</b>, número telefónico <b>{{datos_solicitante[0][2]}}</b> y 
+        dirección de residencia <b>{{datos_solicitante[0][3]}}</b>; ofreció <b>{{datos_cambio[0][1]}}</b> con especificaciones
+        <b>{{datos_cambio[0][0]}}</b>.
+    </p>
+    </div>
+    <br>
+</div>
+<h3 class='resultado_peticion'>Resultado de petición.</h3>
+{% if status == 1 %}
+<div class="estado_final">
+    <p>
+        El trueque ha sido <b class='ACEPTADO'>ACEPTADO</b> por el responsable de la publicación, los datos almacenados serán tratados según
+        los términos y condiciones. Se puede dar paso a un encuentro para que el cambio de los productos se satisfaga.
+    </p>
+</div>
+
+{% elif status == 0 %}
+<div class="estado_final">
+    <p>
+        El trueque ha sido <b class="DENEGADO">DENEGADO</b> por el responsable de la publicación. El cambio no se aceptó.
+    </p>
+</div>
+{% endif %}
 
     
 

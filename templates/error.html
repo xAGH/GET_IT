@@ -1,29 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ tittle }}</title>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/style.css')}}">
-</head>
-<body>
-<header>
-    <img class="img1" src="{{url_for('static', filename='images/logo.jpeg')}}">
-    <h1 class="titulo">GET IT.</h1>
-</header>
-    <h4>"Tu comunidad  de intercambio " 
-        <br> ¿Qué esperas?
-        <br>¡¡Alguien te esta esperando para el trueque!!
-    </h4>
+{% extends 'layout.html' %}
+
+{% block body %}
     <h1 style="text-align: center;">No estás autorizado para ingresar a esta ruta.</h1>
-    <nav  >
-        <center>
-
-        <button class="boton"><a href="{{url_for('index')}}">Get It</a></button>
-
-        </center>
-    </nav>
-</body>
-<footer>. &copy;2021 Derechos reservados pagina  realizada  por   @jhoguia  </footer>
-</html>
+{% endblock %}

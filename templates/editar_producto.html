@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="container">
+
+    <form id="signup" action="http://127.0.0.1:5000/actualizar_producto/{{idproducto}}" method="POST" enctype="multipart/form-data">
+
+        <div class="header">
+        
+            <h3>EDITAR PRODUCTOS</h3>
+            
+        </div>
+        
+        <div class="sep"></div>
+          
+            <label for="pos">Categoría:</label>
+            <select class="select-css" name="PoS" id="pos" required>
+                <option value="" selected>Selecciona</option>
+                <option value="Producto">Producto</option>
+                <option value="Servicio">Servicio</option>
+            </select>
+            
+        <class class="inputs">
+
+            <label for="nombre">Nombre: </label>
+            <input type="text" id="nombre" name="encabezado" required value="{{nombre}}">
+            <label for="cambio">Cambio por:</label>
+            <input type="text" id="cambio" name="cambio" required value="{{cambiarpor}}">
+            <label for="descripcion">Descripción: </label>        
+            <textarea type="text" name="duser_message" required maxlength="4096"style="width: 345px; height: 100px;">{{descripcion}}</textarea><br><br>
+            <div>
+            <hr>
+            <input type="submit" value="Actualizar">
+            <input type="reset" value="Borrar">
+            </div>
+        </div>   
+    </form>
+
+</div>
+
+{% endblock %}

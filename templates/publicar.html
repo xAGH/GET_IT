@@ -13,17 +13,20 @@
             </div>
             
             <div class="sep"></div>
-                <div>
-                    <label for="">Categoria: </label>
-                    <input type="radio" name="PoS" value="P"> Producto
-                    <input type="radio" name="Pos" value="S"> Servicio
-                </div>
+              
+                <label for="pos">Categoría:</label>
+                <select class="select-css" name="PoS" id="pos" required>
+                    <option value="" selected>Selecciona</option>
+                    <option value="Producto">Producto</option>
+                    <option value="Servicio">Servicio</option>
+                </select>
+                
             <class class="inputs">
 
-                <input type="text" name="encabezado" required placeholder="Encabezado" />
-                <input type="text" name="cambio" required placeholder="Cambio por" />        
+                <input type="text" name="encabezado" required placeholder="Ofrezco: " />
+                <input type="text" name="cambio" required placeholder="Solicito: " />        
                 <textarea type="text" name="duser_message" required placeholder="Descripcion"maxlength="4096"style="width: 345px; height: 100px;"></textarea><br><br>
-                <input type=file size=100px name="file1" id="file" required placeholder="Incertar imagen">
+                <input type=file size=100px name="file1" id="file" required placeholder="Insertar imagen">
                 <div id="preview"></div>
                 <div>
                 <hr>

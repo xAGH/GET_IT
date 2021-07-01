@@ -3,19 +3,27 @@
 {% block body %}
     {% if mismo%}
     
-        <h1>No puedes solicitra un truque para tus productos.</h1>
+        <script>
+            alert("No puedes solicitar un truque para tus productos.");
+            window.location = '{{url_for("index")}}'
+        </script>
     
     {% else %}
-
-    <form id='singup' action="{{url_for('trueque')}}" method="POST">
-        <div class="header">
-            <h3>Solicitud de trueque</h3>
+        <div class="container">
+            <form id='signup' action="http://127.0.0.1:5000/trueque/{{idproducto}}" method="POST">
+                <div class="header">
+                    <h3>Solicitud de trueque</h3>
+                </div>
+                <div class="inputs">
+                    <input type="text" name="ofrezco" required placeholder="Te ofrezco..."/>
+                    <br>
+                    <label for="des">Indica las especificaciones de lo que ofreces: </label>
+                    <br>
+                    <textarea name="descripcion" required></textarea>
+                    <input type="submit" value="Enviar solicitud">
+                </div>
+            </form>
         </div>
-            <input type="text" name="ofrezco" required placeholder="Te ofrezco..."/>
-            <label for="des">Indica las especificaciones de lo que ofreces: </label>
-            <textarea name="descripcion" id="des" cols="30" rows="10"></textarea>
-            <input type="submit" value="Enviar solicitud">
-    </form>
 
     {% endif %}
 
